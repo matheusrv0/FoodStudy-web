@@ -1,9 +1,15 @@
 package com.foodstudy.web.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "assinaturas")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Assinatura {
 
     @Id
@@ -20,46 +26,7 @@ public class Assinatura {
     private Usuario usuario;
 
     // ---- Método do diagrama ----
-
     public void ativar() {
         // Lógica será implementada futuramente
-    }
-
-    // ---- Getters e Setters ----
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Float getValor() {
-        return valor;
-    }
-
-    public void setValor(Float valor) {
-        this.valor = valor;
-    }
-
-    public String getBeneficios() {
-        return beneficios;
-    }
-
-    public void setBeneficios(String beneficios) {
-        this.beneficios = beneficios;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 }

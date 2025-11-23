@@ -1,9 +1,16 @@
 package com.foodstudy.web.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "produtos")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 public class Produto {
 
     @Id
@@ -24,51 +31,5 @@ public class Produto {
 
     public void adicionarAoCatalogo() {
         // Método a ser implementado futuramente
-    }
-
-    // ---- Getters e Setters ----
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Float getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Float preco) {
-        this.preco = preco;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Estabelecimento getEstabelecimento() {
-        return estabelecimento;
-    }
-
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
     }
 }

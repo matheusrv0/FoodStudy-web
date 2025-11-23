@@ -1,9 +1,15 @@
 package com.foodstudy.web.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "foodcash")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class FoodCash {
 
     @Id
@@ -12,9 +18,8 @@ public class FoodCash {
 
     private Float saldo;
 
-    // FoodCash pertence a 1 usuário
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
+    // FoodCash pertence a 1 usuário (lado inverso do @OneToOne)
+    @OneToOne(mappedBy = "foodCash")
     private Usuario usuario;
 
     // Métodos do diagrama
@@ -28,26 +33,5 @@ public class FoodCash {
 
     public float consultarSaldo() {
         return saldo;
-    }
-
-    // Getters e setters
-    public Long getId() {
-        return id;
-    }
-
-    public Float getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(Float saldo) {
-        this.saldo = saldo;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 }

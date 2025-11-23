@@ -1,10 +1,18 @@
 package com.foodstudy.web.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Usuario {
 
     @Id
@@ -24,11 +32,11 @@ public class Usuario {
 
     // Um usuário pode realizar vários pedidos
     @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList<>();
 
     // Um usuário pode receber várias notificações
     @OneToMany(mappedBy = "usuario")
-    private List<Notificacao> notificacoes;
+    private List<Notificacao> notificacoes = new ArrayList<>();
 
     // Um usuário possui 1 assinatura
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -46,57 +54,6 @@ public class Usuario {
         }
     }
 
-    // ---- Getters e Setters ----
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public FoodCash getFoodCash() {
-        return foodCash;
-    }
-
-    public void setFoodCash(FoodCash foodCash) {
-        this.foodCash = foodCash;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public List<Notificacao> getNotificacoes() {
-        return notificacoes;
-    }
-
-    public Assinatura getAssinatura() {
-        return assinatura;
-    }
-
-    public void setAssinatura(Assinatura assinatura) {
-        this.assinatura = assinatura;
-    }
 }
+
+

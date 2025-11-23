@@ -1,9 +1,16 @@
 package com.foodstudy.web.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "notificacoes")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Notificacao {
 
     @Id
@@ -23,25 +30,4 @@ public class Notificacao {
         // Ex: enviar por email, push notification, etc.
     }
 
-    // ---- Getters e Setters ----
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }
