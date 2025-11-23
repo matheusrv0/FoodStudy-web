@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Conta - FoodStudy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="/js/app.js"></script>
+</head>
+<body data-page="conta">
+
+<header class="navbar-top">
+    <div class="navbar-left">
+        <div class="logo-badge"><span>FS</span></div>
+        <span class="logo-text">FoodStudy</span>
+    </div>
+
+    <nav class="navbar-center">
+        <a href="/estabelecimentos.html">Catálogo</a>
+        <a href="/planos.html">Planos</a>
+        <a href="#" class="active">Minha Conta</a>
+    </nav>
+</header>
+
+<main class="content">
+    <h1 class="page-title">Minha Conta</h1>
+    <p class="page-subtitle">
+        Olá, <span id="conta-nome">Usuário</span>
+    </p>
+
+    <section class="stats-row">
+        <div class="stat-card purple">
+            <div class="stat-number">R$ <span id="conta-saldo">0,00</span></div>
+            <div class="stat-label">Saldo disponível (FoodCash)</div>
+            <button class="btn-mini" id="btn-add-saldo" style="margin-top:10px;">
+                Adicionar saldo
+            </button>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Cupons ativos</div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-number">
+                <a href="/pedidos.html?usuario=1" style="color:#fff;text-decoration:none;">
+                    Ver pedidos
+                </a>
+            </div>
+            <div class="stat-label">Histórico de pedidos</div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

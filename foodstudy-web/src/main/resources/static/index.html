@@ -5,113 +5,23 @@
     <title>FoodStudy</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link 
+    <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
         rel="stylesheet"
     >
-
-    <style>
-        :root {
-            --primaria: #ff7a29;
-            --branco: #fff;
-            --texto: #f5f5f5;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            background:
-                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                url('https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: var(--texto);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container-app {
-            max-width: 380px;
-            text-align: center;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .logo {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--branco);
-            margin-bottom: 10px;
-        }
-
-        .subtitulo {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
-        }
-
-        /* Botões premium */
-        .btn-app {
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.25s ease;
-        }
-
-        .btn-primario {
-            background: var(--primaria);
-            color: white;
-        }
-        .btn-primario:hover {
-            background: #e06720;
-        }
-
-        .btn-secundario {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        .btn-secundario:hover {
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        .link-menor {
-            margin-top: 18px;
-            display: block;
-            font-size: 0.9rem;
-            color: var(--branco);
-            opacity: 0.85;
-            text-decoration: none;
-        }
-
-        .link-menor:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <<link rel="stylesheet" href="/css/style.css">
+    <script defer src="/js/app.js"></script>
 </head>
 
-<body>
+<body class="landing-body" data-page="landing">
 
 <div class="container-app">
-
-    <div class="logo">🍊 FoodStudy</div>
+    <div class="logo-landing">🍊 FoodStudy</div>
     <p class="subtitulo">
         Economia, sabor e sustentabilidade ao seu alcance.
     </p>
 
-    <button class="btn-app btn-primario" onclick="location.href='/login.html'">
+    <button class="btn-app btn-primario" onclick="location.href='/estabelecimentos.html'">
         Entrar
     </button>
 
@@ -119,8 +29,7 @@
         Criar conta
     </button>
 
-    <a class="link-menor" href="/produtos.html">Continuar sem login</a>
-
+    <a class="link-menor" href="/estabelecimentos.html">Continuar sem login</a>
 </div>
 
 </body>
