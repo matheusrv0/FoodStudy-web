@@ -13,7 +13,7 @@ public class FoodCashService {
         this.foodCashRepository = foodCashRepository;
     }
 
-    // Adiciona saldo ao FoodCash
+  
     public FoodCash adicionarSaldo(Long id, float valor) {
         FoodCash foodCash = foodCashRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FoodCash não encontrado"));
@@ -22,7 +22,6 @@ public class FoodCashService {
         return foodCashRepository.save(foodCash);
     }
 
-    // Desconta saldo do FoodCash
     public FoodCash descontarSaldo(Long id, float valor) {
         FoodCash foodCash = foodCashRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FoodCash não encontrado"));
@@ -31,7 +30,7 @@ public class FoodCashService {
         return foodCashRepository.save(foodCash);
     }
 
-    // Consulta saldo do usuário
+   
     public float consultarSaldo(Long id) {
         FoodCash foodCash = foodCashRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FoodCash não encontrado"));

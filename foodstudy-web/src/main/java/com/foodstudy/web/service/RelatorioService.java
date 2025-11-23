@@ -21,7 +21,7 @@ public class RelatorioService {
         this.estabelecimentoRepository = estabelecimentoRepository;
     }
 
-    // Criar relatório para um estabelecimento
+    
     public Relatorio criarRelatorio(Long estabelecimentoId, Relatorio dados) {
 
         Estabelecimento estabelecimento = estabelecimentoRepository.findById(estabelecimentoId)
@@ -30,24 +30,23 @@ public class RelatorioService {
         dados.setEstabelecimento(estabelecimento);
         dados.setData(LocalDateTime.now()); // data atual
 
-        // Chamando o método do próprio MODEL
+        
         dados.gerar();
 
         return relatorioRepository.save(dados);
     }
 
-    // Listar todos os relatórios
+    
     public List<Relatorio> listarTodos() {
         return relatorioRepository.findAll();
     }
 
-    // Buscar relatório por ID
+    
     public Relatorio buscarPorId(Long id) {
         return relatorioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Relatório não encontrado"));
     }
 
-    // Listar relatórios de um estabelecimento
     public List<Relatorio> listarPorEstabelecimento(Long estabelecimentoId) {
 
         Estabelecimento estabelecimento = estabelecimentoRepository.findById(estabelecimentoId)

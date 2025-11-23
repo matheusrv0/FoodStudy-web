@@ -20,7 +20,7 @@ public class AssinaturaService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Cadastrar nova assinatura
+   
     public Assinatura salvar(Assinatura assinatura, Long usuarioId) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
@@ -30,22 +30,22 @@ public class AssinaturaService {
         return assinaturaRepository.save(assinatura);
     }
 
-    // Listar todas as assinaturas
+    
     public List<Assinatura> listarTodas() {
         return assinaturaRepository.findAll();
     }
 
-    // Buscar assinatura por ID
+    
     public Assinatura buscarPorId(Long id) {
         return assinaturaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Assinatura não encontrada"));
     }
 
-    // Ativar assinatura
+   
     public Assinatura ativar(Long assinaturaId) {
         Assinatura assinatura = buscarPorId(assinaturaId);
 
-        // Chamada ao método da entidade
+       
         assinatura.ativar();
 
         return assinaturaRepository.save(assinatura);

@@ -20,23 +20,22 @@ public class EstabelecimentoService {
         this.produtoRepository = produtoRepository;
     }
 
-    // Cadastrar novo estabelecimento
+    
     public Estabelecimento salvar(Estabelecimento estabelecimento) {
         return estabelecimentoRepository.save(estabelecimento);
     }
 
-    // Buscar todos
+   
     public List<Estabelecimento> listarTodos() {
         return estabelecimentoRepository.findAll();
     }
 
-    // Buscar por ID
+    
     public Estabelecimento buscarPorId(Long id) {
         return estabelecimentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Estabelecimento não encontrado"));
     }
 
-    // Adicionar produto ao estabelecimento
     public Produto adicionarProduto(Long estabelecimentoId, Produto produto) {
         Estabelecimento estabelecimento = buscarPorId(estabelecimentoId);
 
@@ -44,13 +43,13 @@ public class EstabelecimentoService {
         return produtoRepository.save(produto);
     }
 
-    // Listar produtos de um estabelecimento
+   
     public List<Produto> listarProdutos(Long estabelecimentoId) {
         Estabelecimento estabelecimento = buscarPorId(estabelecimentoId);
         return estabelecimento.getProdutos();
     }
 
-    // Deletar estabelecimento
+
     public void deletar(Long id) {
         estabelecimentoRepository.deleteById(id);
     }

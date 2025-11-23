@@ -57,25 +57,25 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    // Buscar pedido por ID
+   
     public Pedido buscarPorId(Long id) {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
     }
 
-    // Listar pedidos
+   
     public List<Pedido> listarTodos() {
         return pedidoRepository.findAll();
     }
 
-    // Cancelar pedido
+    
     public Pedido cancelar(Long pedidoId) {
         Pedido pedido = buscarPorId(pedidoId);
         pedido.setStatus(StatusPedido.CANCELADO);
         return pedidoRepository.save(pedido);
     }
 
-    // Agendar retirada
+    
     public Pedido agendarRetirada(Long pedidoId, LocalDateTime novaData) {
         Pedido pedido = buscarPorId(pedidoId);
         pedido.setHorarioRetirada(novaData);

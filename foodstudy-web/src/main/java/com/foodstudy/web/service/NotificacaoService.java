@@ -20,7 +20,7 @@ public class NotificacaoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Enviar notificação ao usuário
+    
     public Notificacao enviarNotificacao(Long usuarioId, String mensagem) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
@@ -30,18 +30,18 @@ public class NotificacaoService {
         notificacao.setUsuario(usuario);
         notificacao.setMensagem(mensagem);
 
-        // Chamando o método da entidade (futuro envio real)
+        
         notificacao.enviar();
 
         return notificacaoRepository.save(notificacao);
     }
 
-    // Listar todas as notificações
+    
     public List<Notificacao> listarTodas() {
         return notificacaoRepository.findAll();
     }
 
-    // Listar notificações de um usuário específico
+   
     public List<Notificacao> listarPorUsuario(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -49,7 +49,7 @@ public class NotificacaoService {
         return usuario.getNotificacoes();
     }
 
-    // Buscar notificação por ID
+    
     public Notificacao buscarPorId(Long id) {
         return notificacaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Notificação não encontrada"));

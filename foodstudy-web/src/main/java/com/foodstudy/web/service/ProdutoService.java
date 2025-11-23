@@ -15,23 +15,23 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    // Cadastrar produto
+   
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-    // Listar todos os produtos
+    
     public List<Produto> listarTodos() {
         return produtoRepository.findAll();
     }
 
-    // Buscar produto por ID
+    //
     public Produto buscarPorId(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
-    // Atualizar um produto
+    
     public Produto atualizar(Long id, Produto dados) {
         Produto produto = buscarPorId(id);
 
@@ -44,7 +44,7 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    // Remover produto
+   
     public void deletar(Long id) {
         produtoRepository.deleteById(id);
     }

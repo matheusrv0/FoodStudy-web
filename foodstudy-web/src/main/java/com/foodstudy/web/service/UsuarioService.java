@@ -20,32 +20,26 @@ public class UsuarioService {
         this.foodCashRepository = foodCashRepository;
     }
 
-    // Criar novo usuário
     public Usuario cadastrar(Usuario usuario) {
 
-        // Criar FoodCash automaticamente para o usuário
         FoodCash foodCash = new FoodCash();
         foodCash.setSaldo(0f);
         foodCash.setUsuario(usuario);
 
         usuario.setFoodCash(foodCash);
 
-        // Salvar usuário (e FoodCash por cascata)
         return usuarioRepository.save(usuario);
     }
 
-    // Retornar TODOS os usuários
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
 
-    // Buscar usuário por ID
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    // Adicionar saldo ao usuário
     public void adicionarFoodCash(Long usuarioId, float valor) {
         Usuario usuario = buscarPorId(usuarioId);
         FoodCash wallet = usuario.getFoodCash();
@@ -54,7 +48,6 @@ public class UsuarioService {
         foodCashRepository.save(wallet);
     }
 
-    // Visualizar pedidos do usuário
     public List<?> visualizarPedidos(Long usuarioId) {
         Usuario usuario = buscarPorId(usuarioId);
         return usuario.getPedidos();
