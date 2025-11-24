@@ -3,6 +3,7 @@
 ------------------------------------------------------ */
 
 const API_URL = "";
+const STORAGE_USER_KEY = "foodstudy_user";
 
 /* -----------------------------------------------------
    HELPERS DE API
@@ -42,9 +43,31 @@ function apiPost(endpoint, body) {
    UTILITÁRIOS
 ------------------------------------------------------ */
 
-function getUserIdFromQuery() {
+function getStoredUser() {
+    const raw = localStorage.getItem(STORAGE_USER_KEY);
+    if (!raw) return null;
+    try {
+        return JSON.parse(raw);
+    } catch (err) {
+        console.warn("Não foi possível ler o usuário salvo", err);
+        return null;
+    }
+}
+
+function setStoredUser(usuario) {
+    localStorage.setItem(
+        STORAGE_USER_KEY,
+        JSON.stringify({ id: usuario.id, nome: usuario.nome, cpf: usuario.cpf })
+    );
+}
+
+function getCurrentUserId() {
+    const stored = getStoredUser();
+    if (stored?.id) return stored.id;
+
     const params = new URLSearchParams(window.location.search);
-    return params.get("usuario");
+    const queryUser = params.get("usuario");
+    return queryUser || 1;
 }
 
 function refreshIcons() {
@@ -202,13 +225,14 @@ async function initPaginaPlanos() {
 ------------------------------------------------------ */
 
 async function initPaginaMinhaConta() {
-    const userId = getUserIdFromQuery() || 1;
+    const userId = getCurrentUserId();
     const spanNome = document.getElementById("conta-nome");
     const spanSaldo = document.getElementById("conta-saldo");
     const botaoAdd = document.getElementById("btn-add-saldo");
 
     try {
         const usuario = await apiGet(`/usuarios/${userId}`);
+        setStoredUser(usuario);
         spanNome.textContent = usuario.nome || `Usuário #${userId}`;
         const saldo = usuario.foodCash?.saldo ?? 0;
         spanSaldo.textContent = Number(saldo).toFixed(2);
@@ -247,7 +271,7 @@ async function initPaginaPedidos() {
     const tabela = document.getElementById("tabela-pedidos");
     if (!tabela) return;
 
-    const userId = getUserIdFromQuery() || 1;
+    const userId = getCurrentUserId();
 
     try {
         const pedidos = await apiGet(`/usuarios/${userId}/pedidos`);
@@ -303,6 +327,112 @@ function initPaginaCadastroUsuario() {
 }
 
 /* -----------------------------------------------------
+   LOGIN
+------------------------------------------------------ */
+
+function initPaginaLogin() {
+    const form = document.getElementById("form-login");
+    if (!form) return;
+
+    const errorBox = document.getElementById("login-error");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (errorBox) errorBox.textContent = "";
+
+        const nome = form.nome.value.trim();
+        const cpf = form.cpf.value.trim();
+
+        try {
+            const usuario = await apiPost("/usuarios/login", { nome, cpf });
+            setStoredUser(usuario);
+            window.location.href = "/home.html";
+        } catch (err) {
+            console.error(err);
+            if (errorBox) {
+                errorBox.textContent = "Não foi possível entrar. Confira o CPF e tente novamente.";
+            }
+        }
+    });
+}
+
+/* -----------------------------------------------------
+   HOME
+------------------------------------------------------ */
+
+async function initPaginaHome() {
+    const saudacao = document.getElementById("home-saudacao");
+    const saldoSpan = document.getElementById("home-saldo");
+    const estabsLista = document.getElementById("home-estabs");
+    const planosLista = document.getElementById("home-planos");
+
+    const stored = getStoredUser();
+
+    if (stored) {
+        try {
+            const usuario = await apiGet(`/usuarios/${stored.id}`);
+            setStoredUser(usuario);
+            if (saudacao) {
+                saudacao.textContent = `Olá, ${usuario.nome || "estudante"}`;
+            }
+            if (saldoSpan) {
+                saldoSpan.textContent = Number(usuario.foodCash?.saldo ?? 0).toFixed(2);
+            }
+        } catch (err) {
+            console.warn("Falha ao atualizar usuário", err);
+        }
+    }
+
+    if (estabsLista) {
+        try {
+            const estabs = await apiGet("/estabelecimentos");
+            estabsLista.innerHTML = "";
+            estabs.slice(0, 3).forEach((est) => {
+                estabsLista.innerHTML += `
+                    <div class="card-mini">
+                        <div class="card-icon mini">
+                            <i data-lucide="store"></i>
+                        </div>
+                        <div>
+                            <p class="mini-label">Restaurante</p>
+                            <p class="mini-value">${est.nome}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (err) {
+            console.error(err);
+            estabsLista.innerHTML = "<p class=\"erro-inline\">Não foi possível carregar estabelecimentos.</p>";
+        }
+    }
+
+    if (planosLista) {
+        try {
+            const planos = await apiGet("/assinaturas");
+            planosLista.innerHTML = "";
+            planos.forEach((plano) => {
+                planosLista.innerHTML += `
+                    <div class="card-mini">
+                        <div class="card-icon mini purple">
+                            <i data-lucide="badge-dollar-sign"></i>
+                        </div>
+                        <div>
+                            <p class="mini-label">${plano.tipo}</p>
+                            <p class="mini-value">R$ ${Number(plano.valor || 0).toFixed(2)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (err) {
+            console.error(err);
+            planosLista.innerHTML = "<p class=\"erro-inline\">Planos indisponíveis no momento.</p>";
+        }
+    }
+
+    refreshIcons();
+}
+
+/* -----------------------------------------------------
    ROTEADOR POR PÁGINA
 ------------------------------------------------------ */
 
@@ -318,6 +448,12 @@ document.addEventListener("DOMContentLoaded", () => {
             break;
         case "planos":
             initPaginaPlanos();
+            break;
+        case "home":
+            initPaginaHome();
+            break;
+        case "login":
+            initPaginaLogin();
             break;
         case "conta":
             initPaginaMinhaConta();

@@ -3,21 +3,18 @@ package com.foodstudy.web.service;
 import com.foodstudy.web.model.Usuario;
 import com.foodstudy.web.model.FoodCash;
 import com.foodstudy.web.repository.UsuarioRepository;
-import com.foodstudy.web.repository.FoodCashRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-    private final FoodCashRepository foodCashRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository,
-                          FoodCashRepository foodCashRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
-        this.foodCashRepository = foodCashRepository;
     }
 
     public Usuario cadastrar(Usuario usuario) {
@@ -29,6 +26,21 @@ public class UsuarioService {
         usuario.setFoodCash(foodCash);
 
         return usuarioRepository.save(usuario);
+    }
+
+    public Usuario loginOuCriar(String nome, String cpf) {
+        Usuario usuario = usuarioRepository.findByCpf(cpf)
+                .orElseGet(() -> criarUsuario(nome, cpf));
+
+        if (usuario.getFoodCash() == null) {
+            FoodCash carteira = new FoodCash();
+            carteira.setSaldo(0f);
+            carteira.setUsuario(usuario);
+            usuario.setFoodCash(carteira);
+            usuario = usuarioRepository.save(usuario);
+        }
+
+        return usuario;
     }
 
     public List<Usuario> listarTodos() {
@@ -58,5 +70,19 @@ public class UsuarioService {
     public List<?> visualizarPedidos(Long usuarioId) {
         Usuario usuario = buscarPorId(usuarioId);
         return usuario.getPedidos();
+    }
+
+    private Usuario criarUsuario(String nome, String cpf) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(Objects.requireNonNullElse(nome, "Novo usuário"));
+        usuario.setCpf(cpf);
+        usuario.setTipo("aluno");
+
+        FoodCash carteira = new FoodCash();
+        carteira.setSaldo(0f);
+        carteira.setUsuario(usuario);
+        usuario.setFoodCash(carteira);
+
+        return usuarioRepository.save(usuario);
     }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Início - FoodStudy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="/js/app.js"></script>
+</head>
+<body data-page="home">
+<header class="navbar-top">
+    <div class="navbar-left">
+        <div class="logo-badge"><span>FS</span></div>
+        <span class="logo-text">FoodStudy</span>
+    </div>
+
+    <nav class="navbar-center">
+        <a href="/home.html" class="active">Início</a>
+        <a href="/estabelecimentos.html">Catálogo</a>
+        <a href="/planos.html">Planos</a>
+        <a href="/minha-conta.html">Minha Conta</a>
+    </nav>
+</header>
+
+<main class="content">
+    <section class="hero">
+        <div>
+            <p class="pill-top">Refrescante e acessível</p>
+            <h1 id="home-saudacao">Olá, estudante</h1>
+            <p class="page-subtitle">Economize tempo e dinheiro com refeições seguras e nutritivas dentro do campus.</p>
+            <div class="hero-actions">
+                <a class="btn-primario" href="/estabelecimentos.html">Ver estabelecimentos</a>
+                <a class="btn-secundario" href="/planos.html">Conhecer planos</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <p class="mini-label">Saldo FoodCash</p>
+            <p class="hero-saldo">R$ <span id="home-saldo">0,00</span></p>
+            <p class="hero-caption">Use o saldo para retirar refeições sem filas.</p>
+        </div>
+    </section>
+
+    <section class="grid-two">
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <p class="mini-label">Estabelecimentos</p>
+                    <h3 class="panel-title">Mais perto de você</h3>
+                </div>
+                <a class="link-mini" href="/estabelecimentos.html">Ver todos</a>
+            </div>
+            <div class="mini-grid" id="home-estabs">
+                <p class="mini-label">Carregando...</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <p class="mini-label">Assinaturas</p>
+                    <h3 class="panel-title">Benefícios exclusivos</h3>
+                </div>
+                <a class="link-mini" href="/planos.html">Ver planos</a>
+            </div>
+            <div class="mini-grid" id="home-planos">
+                <p class="mini-label">Carregando...</p>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
