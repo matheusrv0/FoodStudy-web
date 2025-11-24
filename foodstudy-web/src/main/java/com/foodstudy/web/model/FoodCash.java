@@ -16,7 +16,7 @@ public class FoodCash {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Float saldo;
+    private Float saldo = 0f;
 
     // FoodCash pertence a 1 usuário (lado inverso do @OneToOne)
     @OneToOne(mappedBy = "foodCash")
@@ -24,14 +24,14 @@ public class FoodCash {
 
     // Métodos do diagrama
     public void adicionar(float valor) {
-        this.saldo += valor;
+        this.saldo = (saldo == null ? 0f : saldo) + valor;
     }
 
     public void descontar(float valor) {
-        this.saldo -= valor;
+        this.saldo = (saldo == null ? 0f : saldo) - valor;
     }
 
     public float consultarSaldo() {
-        return saldo;
+        return saldo == null ? 0f : saldo;
     }
 }

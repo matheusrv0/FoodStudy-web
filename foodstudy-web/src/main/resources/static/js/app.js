@@ -19,7 +19,7 @@ async function apiRequest(method, endpoint, body) {
         options.body = JSON.stringify(body);
     }
 
-    const resp = await fetch(`${API_URL}${endpoint}`);
+    const resp = await fetch(`${API_URL}${endpoint}`, options);
 
     if (!resp.ok) {
         const msg = await resp.text().catch(() => "");

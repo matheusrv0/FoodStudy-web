@@ -44,8 +44,15 @@ public class UsuarioService {
         Usuario usuario = buscarPorId(usuarioId);
         FoodCash wallet = usuario.getFoodCash();
 
+        if (wallet == null) {
+            wallet = new FoodCash();
+            wallet.setSaldo(0f);
+            wallet.setUsuario(usuario);
+            usuario.setFoodCash(wallet);
+        }
+
         wallet.adicionar(valor);
-        foodCashRepository.save(wallet);
+        usuarioRepository.save(usuario);
     }
 
     public List<?> visualizarPedidos(Long usuarioId) {
