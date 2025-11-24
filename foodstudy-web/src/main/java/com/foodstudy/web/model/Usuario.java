@@ -26,7 +26,7 @@ public class Usuario {
     // ---- Relacionamentos ----
 
     // Um usuário possui 1 FoodCash
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "foodcash_id")
     private FoodCash foodCash;
 

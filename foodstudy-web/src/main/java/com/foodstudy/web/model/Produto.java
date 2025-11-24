@@ -1,5 +1,6 @@
 package com.foodstudy.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Produto {
     // Um produto pertence a um único estabelecimento
     @ManyToOne
     @JoinColumn(name = "estabelecimento_id")
+    @JsonIgnoreProperties({"produtos", "pedidos", "relatorios"})
     private Estabelecimento estabelecimento;
 
     // ---- Métodos do diagrama ----

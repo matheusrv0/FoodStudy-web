@@ -1,5 +1,6 @@
 package com.foodstudy.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,14 +25,17 @@ public class Estabelecimento {
 
     // Um estabelecimento tem vários produtos
     @OneToMany(mappedBy = "estabelecimento")
+    @JsonIgnoreProperties("estabelecimento")
     private List<Produto> produtos = new ArrayList<>();
 
     // Um estabelecimento possui vários pedidos
     @OneToMany(mappedBy = "estabelecimento")
+    @JsonIgnoreProperties("estabelecimento")
     private List<Pedido> pedidos = new ArrayList<>();
 
     // Um estabelecimento possui vários relatórios
     @OneToMany(mappedBy = "estabelecimento")
+    @JsonIgnoreProperties("estabelecimento")
     private List<Relatorio> relatorios = new ArrayList<>();
 
     // ---- Métodos do diagrama ----

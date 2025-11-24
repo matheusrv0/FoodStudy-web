@@ -2,9 +2,12 @@ package com.foodstudy.web.controller;
 
 import com.foodstudy.web.model.Usuario;
 import com.foodstudy.web.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -14,6 +17,17 @@ public class UsuarioController {
 
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
+    }
+
+    @PostMapping("/login")
+    public Usuario login(@RequestBody Map<String, String> payload) {
+        String nome = payload.getOrDefault("nome", "Usuário");
+        String cpf = payload.get("cpf");
+        if (cpf == null || cpf.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF é obrigatório para login");
+        }
+
+        return usuarioService.loginOuCriar(nome, cpf);
     }
 
     // 1. Listar todos os usuários

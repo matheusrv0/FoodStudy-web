@@ -1,5 +1,6 @@
 package com.foodstudy.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,22 +17,23 @@ public class FoodCash {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Float saldo;
+    private Float saldo = 0f;
 
     // FoodCash pertence a 1 usuário (lado inverso do @OneToOne)
     @OneToOne(mappedBy = "foodCash")
+    @JsonIgnoreProperties({"foodCash", "pedidos", "notificacoes", "assinatura"})
     private Usuario usuario;
 
     // Métodos do diagrama
     public void adicionar(float valor) {
-        this.saldo += valor;
+        this.saldo = (saldo == null ? 0f : saldo) + valor;
     }
 
     public void descontar(float valor) {
-        this.saldo -= valor;
+        this.saldo = (saldo == null ? 0f : saldo) - valor;
     }
 
     public float consultarSaldo() {
-        return saldo;
+        return saldo == null ? 0f : saldo;
     }
 }
